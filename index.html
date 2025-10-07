@@ -221,6 +221,172 @@
   .brand:hover::after {
     width: 100%;
   }
+  
+  /* ---------- MOBILE SIDEBAR ---------- */
+  .mobile-menu-btn {
+    display: none;
+    background: none;
+    border: none;
+    color: var(--gold-1);
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 10px;
+    transition: var(--transition);
+    z-index: 1001;
+  }
+  
+  .mobile-menu-btn:hover {
+    transform: scale(1.1);
+    color: var(--gold-3);
+  }
+  
+  .mobile-sidebar {
+    position: fixed;
+    top: 0;
+    right: -350px;
+    width: 350px;
+    height: 100vh;
+    background: linear-gradient(135deg, rgba(15,15,15,0.98), rgba(25,25,25,0.96));
+    backdrop-filter: blur(20px);
+    border-left: 1px solid rgba(212,175,55,0.2);
+    z-index: 1000;
+    transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow-y: auto;
+  }
+  
+  .mobile-sidebar.open {
+    right: 0;
+  }
+  
+  .mobile-sidebar-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+  }
+  
+  .mobile-sidebar-overlay.show {
+    opacity: 1;
+    visibility: visible;
+  }
+  
+  .sidebar-header {
+    padding: 30px 25px 20px;
+    border-bottom: 1px solid rgba(212,175,55,0.15);
+  }
+  
+  .sidebar-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, var(--gold-1), var(--gold-2), var(--gold-3));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 8px;
+  }
+  
+  .sidebar-tagline {
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+    font-weight: 300;
+    letter-spacing: 0.5px;
+  }
+  
+  .sidebar-nav {
+    padding: 20px 0;
+  }
+  
+  .sidebar-nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .sidebar-nav li {
+    margin-bottom: 8px;
+  }
+  
+  .sidebar-nav a {
+    display: flex;
+    align-items: center;
+    padding: 12px 25px;
+    color: var(--text-secondary);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.95rem;
+    transition: var(--transition);
+    position: relative;
+    border-left: 3px solid transparent;
+  }
+  
+  .sidebar-nav a:hover,
+  .sidebar-nav a.active {
+    color: var(--gold-1);
+    background: rgba(212,175,55,0.08);
+    border-left-color: var(--gold-1);
+    transform: translateX(5px);
+  }
+  
+  .sidebar-nav a i {
+    margin-right: 12px;
+    width: 18px;
+    text-align: center;
+    font-size: 0.9rem;
+  }
+  
+  .sidebar-contact {
+    padding: 20px 25px;
+    background: rgba(212,175,55,0.05);
+    margin: 20px 0;
+  }
+  
+  .sidebar-contact h4 {
+    color: var(--gold-1);
+    font-size: 1rem;
+    margin-bottom: 12px;
+    font-weight: 600;
+  }
+  
+  .contact-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    color: var(--text-secondary);
+    font-size: 0.85rem;
+  }
+  
+  .contact-item i {
+    margin-right: 10px;
+    color: var(--gold-1);
+    width: 16px;
+  }
+  
+  .sidebar-close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 50%;
+    transition: var(--transition);
+  }
+  
+  .sidebar-close:hover {
+    background: rgba(212,175,55,0.1);
+    color: var(--gold-1);
+    transform: rotate(90deg);
+  }
   nav ul{display:flex;gap:32px;list-style:none;align-items:center}
   nav a{
     color:var(--text-secondary);
@@ -411,6 +577,113 @@
     opacity:1;
     transform:translateY(0);
   }
+  
+  /* Mobile-first visibility - ensure sections are visible by default on mobile */
+  @media screen and (max-width: 768px) {
+    section {
+      opacity: 1 !important;
+      transform: translateY(0) !important;
+      transition: none;
+    }
+    
+    section.reveal {
+      opacity: 1 !important;
+      transform: translateY(0) !important;
+    }
+    
+    /* Mobile animation fallback */
+    section.mobile-animate {
+      animation: mobileSlideIn 0.6s ease-out forwards;
+    }
+  }
+  
+  @keyframes mobileSlideIn {
+    0% {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  /* Mobile fade-in animation for cards and elements */
+  @keyframes mobileFadeIn {
+    0% {
+      opacity: 0;
+      transform: translateY(15px) scale(0.98);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+  }
+  
+  /* Mobile stagger animation */
+  @keyframes mobileStagger {
+    0% {
+      opacity: 0;
+      transform: translateX(-10px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+  
+  /* Apply mobile animations to various elements */
+  @media screen and (max-width: 768px) {
+    .service, .price-card, .member, .testimonial, .result-card,
+    .tech-card, .safety-card, .financing-card {
+      animation: mobileFadeIn 0.5s ease-out forwards;
+    }
+    
+    .service:nth-child(1) { animation-delay: 0.1s; }
+    .service:nth-child(2) { animation-delay: 0.2s; }
+    .service:nth-child(3) { animation-delay: 0.3s; }
+    .service:nth-child(4) { animation-delay: 0.4s; }
+    .service:nth-child(5) { animation-delay: 0.5s; }
+    .service:nth-child(6) { animation-delay: 0.6s; }
+    
+    .step {
+      animation: mobileStagger 0.4s ease-out forwards;
+    }
+    .step:nth-child(1) { animation-delay: 0.1s; }
+    .step:nth-child(2) { animation-delay: 0.2s; }
+    .step:nth-child(3) { animation-delay: 0.3s; }
+    .step:nth-child(4) { animation-delay: 0.4s; }
+    
+    /* Mobile loading indicator */
+    .mobile-loading-indicator {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 10000;
+      background: rgba(15,15,15,0.95);
+      padding: 30px;
+      border-radius: 16px;
+      text-align: center;
+      border: 1px solid rgba(212,175,55,0.3);
+      backdrop-filter: blur(10px);
+    }
+    
+    .mobile-loading-spinner {
+      width: 40px;
+      height: 40px;
+      border: 3px solid rgba(212,175,55,0.3);
+      border-top: 3px solid var(--gold-1);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin: 0 auto 15px;
+    }
+    
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  }
   section::before {
     content: '';
     position: absolute;
@@ -600,8 +873,13 @@
     margin-top:10px;
   }
 
-  /* ---------- PROCESS ---------- */
-  .process{display:flex;flex-direction:column;gap:20px;margin-top:40px}
+  /* ---------- ENHANCED PROCESS ---------- */
+  .process{
+    display:flex;
+    flex-direction:column;
+    gap:20px;
+    margin-top:40px;
+  }
   .step{
     display:flex;
     gap:20px;
@@ -609,12 +887,15 @@
     background:linear-gradient(145deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
     padding:24px;
     border-radius:16px;
-    border:1px solid rgba(232,200,124,0.15);
-    transition: all .3s;
+    border:1px solid rgba(212,175,55,0.15);
+    transition: var(--transition);
+    position: relative;
+    overflow: visible;
   }
   .step:hover{
     transform: translateX(10px);
-    border-color: rgba(232,200,124,0.3);
+    border-color: rgba(212,175,55,0.3);
+    box-shadow: var(--shadow-medium);
   }
   .num{
     width:50px;
@@ -628,11 +909,35 @@
     font-weight:900;
     color:#050505;
     font-size: 1.3rem;
-    box-shadow: 0 8px 20px rgba(232,200,124,0.3);
+    box-shadow: 0 8px 20px rgba(212,175,55,0.3);
+    flex-shrink: 0;
   }
   .step h4{
     margin: 0 0 8px 0;
     color: var(--gold-1);
+    font-size: 1.2rem;
+    font-weight: 600;
+  }
+  .step p {
+    margin: 0;
+    color: var(--text-secondary);
+    line-height: 1.6;
+  }
+  
+  /* Process section container */
+  .process-container {
+    margin-top: 60px;
+    position: relative;
+    z-index: 1;
+  }
+  
+  .process-title {
+    color: var(--gold-1);
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 30px;
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
   }
 
   /* ---------- HOURS ---------- */
@@ -785,23 +1090,67 @@
     background:rgba(255,255,255,0.05);
   }
 
-  /* ---------- STICKY BOOK BUTTON ---------- */
-  .book-sticky{position:fixed;right:30px;bottom:30px;z-index:1500}
+  /* ---------- ENHANCED STICKY BOOK BUTTON ---------- */
+  .book-sticky{
+    position:fixed;
+    right:20px;
+    bottom:20px;
+    z-index:1500;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .book-sticky.hidden {
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(20px);
+  }
+  
   .book-btn{
-    background:linear-gradient(135deg,#e8c87c,#d4af37);
-    padding:16px 28px;
-    border-radius:999px;
-    color:#070707;
-    font-weight:900;
+    background:linear-gradient(135deg, var(--gold-1), var(--gold-2));
+    padding:14px 24px;
+    border-radius:50px;
+    color:#0a0a0a;
+    font-weight:700;
     border:none;
     cursor:pointer;
-    box-shadow:0 18px 40px rgba(232,200,124,0.4);
-    transition: all .3s;
-    font-size: 1rem;
+    box-shadow: var(--shadow-medium), 0 0 20px rgba(212,175,55,0.3);
+    transition: var(--transition);
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    letter-spacing: -0.01em;
   }
+  
   .book-btn:hover{
-    transform: scale(1.05) translateY(-3px);
-    box-shadow:0 22px 50px rgba(232,200,124,0.5);
+    transform: scale(1.05) translateY(-2px);
+    box-shadow: var(--shadow-heavy), 0 0 30px rgba(212,175,55,0.4);
+  }
+  
+  /* Mobile-specific book button styling */
+  @media screen and (max-width: 768px) {
+    .book-sticky {
+      right: 15px;
+      bottom: 15px;
+      z-index: 900; /* Lower than sidebar */
+    }
+    
+    .book-btn {
+      padding: 10px 16px;
+      font-size: 0.8rem;
+      box-shadow: var(--shadow-light), 0 0 15px rgba(212,175,55,0.2);
+      border-radius: 25px;
+    }
+    
+    .book-btn:hover {
+      transform: scale(1.02);
+    }
+    
+    .book-pulse {
+      width: 6px !important;
+      height: 6px !important;
+      margin-right: 6px !important;
+    }
   }
   .book-pulse{
     width:10px;
@@ -876,6 +1225,7 @@
   @media (max-width: 980px) {
     .contact-grid { grid-template-columns: 1fr; }
     nav ul { display: none; }
+    .mobile-menu-btn { display: block; }
     #hero h1 { font-size: 3rem; line-height: 1.1; }
     #hero p { font-size: 1.1rem; padding: 0 20px; }
     h2 { font-size: 2.5rem; }
@@ -888,6 +1238,38 @@
     section { padding: 80px 30px; }
     .navwrap { padding: 0 30px; }
     .brand { font-size: 1.4rem; }
+    
+    /* Mobile process section visibility fixes */
+    .process-container {
+      display: block !important;
+      visibility: visible !important;
+      opacity: 1 !important;
+      margin-top: 40px !important;
+    }
+    
+    .process-title {
+      font-size: 1.8rem !important;
+      margin-bottom: 25px !important;
+    }
+    
+    .process {
+      display: flex !important;
+      flex-direction: column !important;
+      gap: 15px !important;
+      margin-top: 30px !important;
+    }
+    
+    .step {
+      display: flex !important;
+      flex-direction: row !important;
+      align-items: flex-start !important;
+      padding: 20px !important;
+      gap: 15px !important;
+    }
+    
+    .step:hover {
+      transform: none !important;
+    }
     
     /* About section mobile fix */
     #about > div[style*="grid-template-columns"] {
@@ -918,6 +1300,88 @@
     .services { padding: 0; }
     .hero-ctas { flex-direction: column; gap: 12px; }
     .btn { padding: 14px 30px; font-size: 0.95rem; }
+    
+    /* Mobile sidebar adjustments */
+    .mobile-sidebar { 
+      width: 300px; 
+      right: -300px;
+      box-shadow: -5px 0 20px rgba(0,0,0,0.5);
+    }
+    .sidebar-header { 
+      padding: 25px 20px 15px; 
+    }
+    .sidebar-nav a { 
+      padding: 12px 20px; 
+      font-size: 0.9rem;
+      min-height: 44px; /* Touch-friendly height */
+      display: flex;
+      align-items: center;
+    }
+    
+    .sidebar-nav a i {
+      width: 20px;
+      text-align: center;
+      margin-right: 12px;
+    }
+    
+    /* Mobile card adjustments */
+    .tech-card, .safety-card, .financing-card {
+      margin: 0 10px;
+    }
+    
+    /* Mobile stats counter */
+    .counter {
+      font-size: 2.2rem !important;
+    }
+    
+    /* Mobile technology section */
+    #technology div[style*="grid-template-columns"] {
+      grid-template-columns: 1fr !important;
+      gap: 25px;
+    }
+    
+    /* Mobile safety section */
+    #safety div[style*="grid-template-columns"]:first-of-type {
+      grid-template-columns: 1fr !important;
+      gap: 25px;
+    }
+    
+    /* Mobile financing section */
+    #financing div[style*="grid-template-columns"]:first-of-type {
+      grid-template-columns: 1fr !important;
+      gap: 25px;
+    }
+    
+    /* Mobile process section - How it Works */
+    .process {
+      flex-direction: column !important;
+      gap: 15px !important;
+    }
+    
+    .step {
+      flex-direction: column !important;
+      text-align: center !important;
+      gap: 15px !important;
+      padding: 20px !important;
+    }
+    
+    .step .num {
+      margin: 0 auto 15px auto !important;
+    }
+    
+    /* Mobile process heading and visibility */
+    .process-container {
+      display: block !important;
+      visibility: visible !important;
+      margin-top: 30px !important;
+      padding: 0 !important;
+    }
+    
+    .process-title {
+      font-size: 1.4rem !important;
+      margin-bottom: 20px !important;
+      display: block !important;
+    }
     
     /* Mobile service cards */
     .service h3 { font-size: 1.2rem; padding: 20px 20px 8px; }
@@ -955,6 +1419,42 @@
     section { padding: 50px 15px; }
     .service img { height: 200px; }
     .lead { font-size: 1rem; margin-bottom: 30px; }
+    
+    /* Extra mobile fixes for process section */
+    .process {
+      display: flex !important;
+      flex-direction: column !important;
+      gap: 12px !important;
+      margin-top: 30px !important;
+    }
+    
+    .step {
+      display: flex !important;
+      flex-direction: column !important;
+      align-items: center !important;
+      text-align: center !important;
+      padding: 18px !important;
+      gap: 12px !important;
+    }
+    
+    .step h4 {
+      margin: 8px 0 !important;
+      font-size: 1.1rem !important;
+    }
+    
+    .step p {
+      margin: 0 !important;
+      font-size: 0.9rem !important;
+      line-height: 1.5 !important;
+    }
+    
+    .num {
+      width: 45px !important;
+      height: 45px !important;
+      min-width: 45px !important;
+      font-size: 1.2rem !important;
+      margin: 0 auto 12px auto !important;
+    }
   }
   
   /* ---------- ACCESSIBILITY IMPROVEMENTS ---------- */
@@ -1006,6 +1506,49 @@
       display: none !important;
     }
   }
+  
+  /* ---------- FORCE MOBILE PROCESS SECTION VISIBILITY ---------- */
+  @media screen and (max-width: 768px) {
+    .process-container,
+    .process-container *,
+    .process,
+    .process *,
+    .step,
+    .step *,
+    .process-title {
+      display: block !important;
+      visibility: visible !important;
+      opacity: 1 !important;
+      position: static !important;
+      overflow: visible !important;
+    }
+    
+    .process {
+      display: flex !important;
+      flex-direction: column !important;
+    }
+    
+    .step {
+      display: flex !important;
+      flex-direction: row !important;
+      align-items: flex-start !important;
+      margin-bottom: 15px !important;
+    }
+    
+    .process-container {
+      margin: 40px 0 !important;
+      padding: 0 15px !important;
+      width: 100% !important;
+      max-width: 100% !important;
+    }
+    
+    .process-title {
+      text-align: center !important;
+      margin-bottom: 25px !important;
+      font-size: 1.6rem !important;
+      display: block !important;
+    }
+  }
 </style>
 </head>
 <body>
@@ -1050,8 +1593,80 @@
     </nav>
 
     <button class="theme-btn" id="themeToggle" title="Toggle light/dark theme" aria-label="Toggle light and dark theme">🌙</button>
+    <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Open mobile menu">
+      <i class="fas fa-bars"></i>
+    </button>
   </div>
 </header>
+
+<!-- MOBILE SIDEBAR -->
+<div class="mobile-sidebar-overlay" id="sidebarOverlay"></div>
+<div class="mobile-sidebar" id="mobileSidebar">
+  <button class="sidebar-close" id="sidebarClose" aria-label="Close menu">
+    <i class="fas fa-times"></i>
+  </button>
+  
+  <div class="sidebar-header">
+    <div class="sidebar-logo">Urban Aesthetic</div>
+    <div class="sidebar-tagline">Premium Medical Aesthetics</div>
+  </div>
+  
+  <nav class="sidebar-nav">
+    <ul>
+      <li><a href="#hero" class="sidebar-link active"><i class="fas fa-home"></i>Home</a></li>
+      <li><a href="#about" class="sidebar-link"><i class="fas fa-info-circle"></i>About Us</a></li>
+      <li><a href="#services" class="sidebar-link"><i class="fas fa-spa"></i>Treatments</a></li>
+      <li><a href="#technology" class="sidebar-link"><i class="fas fa-microchip"></i>Technology</a></li>
+      <li><a href="#results" class="sidebar-link"><i class="fas fa-chart-line"></i>Results Gallery</a></li>
+      <li><a href="#pricing" class="sidebar-link"><i class="fas fa-tags"></i>Pricing</a></li>
+      <li><a href="#safety" class="sidebar-link"><i class="fas fa-shield-alt"></i>Patient Safety</a></li>
+      <li><a href="#financing" class="sidebar-link"><i class="fas fa-credit-card"></i>Financing</a></li>
+      <li><a href="#team" class="sidebar-link"><i class="fas fa-user-md"></i>Medical Team</a></li>
+      <li><a href="#testimonials" class="sidebar-link"><i class="fas fa-star"></i>Testimonials</a></li>
+      <li><a href="#hours" class="sidebar-link"><i class="fas fa-clock"></i>Hours</a></li>
+      <li><a href="#faq" class="sidebar-link"><i class="fas fa-question-circle"></i>FAQ</a></li>
+      <li><a href="#contact" class="sidebar-link"><i class="fas fa-envelope"></i>Contact</a></li>
+    </ul>
+  </nav>
+  
+  <div class="sidebar-contact">
+    <h4>Quick Contact</h4>
+    <div class="contact-item">
+      <i class="fas fa-phone"></i>
+      <span>(555) 123-GLOW</span>
+    </div>
+    <div class="contact-item">
+      <i class="fas fa-envelope"></i>
+      <span>hello@urbanaesthetic.com</span>
+    </div>
+    <div class="contact-item">
+      <i class="fas fa-map-marker-alt"></i>
+      <span>123 Wellness Drive, Suite 5</span>
+    </div>
+    <div class="contact-item">
+      <i class="fas fa-clock"></i>
+      <span>Mon-Fri: 9:00-20:00</span>
+    </div>
+  </div>
+  
+  <div style="padding: 20px 25px; text-align: center;">
+    <button class="btn" onclick="openQuickModal()" style="width: 100%; margin-bottom: 15px;">
+      <i class="fas fa-calendar-plus" style="margin-right: 8px;"></i>
+      Book Consultation
+    </button>
+    
+    <!-- Theme Toggle in Sidebar -->
+    <button class="btn secondary" onclick="document.getElementById('themeToggle').click()" style="width: 100%; margin-bottom: 15px; font-size: 0.85rem;">
+      <i class="fas fa-adjust" style="margin-right: 8px;"></i>
+      Toggle Theme
+    </button>
+    
+    <div style="color: var(--text-secondary); font-size: 0.8rem; line-height: 1.4;">
+      Emergency appointments available<br>
+      <span style="color: var(--gold-1);">Call (555) 123-GLOW</span>
+    </div>
+  </div>
+</div>
 
 <!-- HERO -->
 <section id="hero" aria-label="Hero section">
@@ -1190,8 +1805,8 @@
     </div>
 
     <!-- HOW IT WORKS -->
-    <div style="margin-top:60px">
-      <h3 style="color:var(--gold-1);text-align:center;font-size:2rem;margin-bottom:30px">How the Process Works</h3>
+    <div class="process-container">
+      <h3 class="process-title">How the Process Works</h3>
       <div class="process">
         <div class="step">
           <div class="num">1</div>
@@ -1244,6 +1859,89 @@
       </table>
     </div>
     <p style="margin-top:20px;color:var(--muted);text-align:center">Note: Friday late hours are for specialist sessions & package treatments — please book early.</p>
+  </section>
+
+  <!-- TECHNOLOGY SHOWCASE -->
+  <section id="technology" class="reveal" style="background:linear-gradient(135deg,rgba(0,0,0,0.02),rgba(212,175,55,0.03));padding-top:80px">
+    <h2>Advanced Medical Technology</h2>
+    <p class="lead">Our clinic features the latest FDA-approved aesthetic technologies, ensuring you receive the most advanced and effective treatments available in modern aesthetic medicine.</p>
+    
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:40px;margin-top:60px">
+      <div class="tech-card" style="background:var(--card-bg);border-radius:var(--border-radius);padding:0;border:1px solid rgba(212,175,55,0.12);overflow:hidden;transition:var(--transition)">
+        <div style="height:180px;background:linear-gradient(135deg,rgba(212,175,55,0.1),rgba(212,175,55,0.05));display:flex;align-items:center;justify-content:center;position:relative">
+          <i class="fas fa-microchip" style="font-size:4rem;color:var(--gold-1);opacity:0.7"></i>
+          <div style="position:absolute;top:15px;right:15px;background:var(--gold-1);color:#0a0a0a;padding:4px 12px;border-radius:20px;font-size:0.75rem;font-weight:700">FDA APPROVED</div>
+        </div>
+        <div style="padding:25px">
+          <h3 style="color:var(--gold-1);margin-bottom:12px;font-size:1.3rem">Morpheus8 RF Technology</h3>
+          <p style="color:var(--text-secondary);margin-bottom:15px;line-height:1.6;font-size:0.95rem">Fractional radiofrequency microneedling for skin tightening, contouring, and collagen stimulation.</p>
+          <div style="display:flex;gap:8px;flex-wrap:wrap">
+            <span style="background:rgba(212,175,55,0.1);color:var(--gold-1);padding:4px 10px;border-radius:12px;font-size:0.8rem">RF Energy</span>
+            <span style="background:rgba(212,175,55,0.1);color:var(--gold-1);padding:4px 10px;border-radius:12px;font-size:0.8rem">Microneedling</span>
+            <span style="background:rgba(212,175,55,0.1);color:var(--gold-1);padding:4px 10px;border-radius:12px;font-size:0.8rem">Collagen Boost</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="tech-card" style="background:var(--card-bg);border-radius:var(--border-radius);padding:0;border:1px solid rgba(212,175,55,0.12);overflow:hidden;transition:var(--transition)">
+        <div style="height:180px;background:linear-gradient(135deg,rgba(212,175,55,0.1),rgba(212,175,55,0.05));display:flex;align-items:center;justify-content:center;position:relative">
+          <i class="fas fa-snowflake" style="font-size:4rem;color:var(--gold-1);opacity:0.7"></i>
+          <div style="position:absolute;top:15px;right:15px;background:var(--gold-1);color:#0a0a0a;padding:4px 12px;border-radius:20px;font-size:0.75rem;font-weight:700">FDA CLEARED</div>
+        </div>
+        <div style="padding:25px">
+          <h3 style="color:var(--gold-1);margin-bottom:12px;font-size:1.3rem">CoolSculpting® Elite</h3>
+          <p style="color:var(--text-secondary);margin-bottom:15px;line-height:1.6;font-size:0.95rem">Cryolipolysis technology for permanent fat reduction without surgery or downtime.</p>
+          <div style="display:flex;gap:8px;flex-wrap:wrap">
+            <span style="background:rgba(212,175,55,0.1);color:var(--gold-1);padding:4px 10px;border-radius:12px;font-size:0.8rem">Cryolipolysis</span>
+            <span style="background:rgba(212,175,55,0.1);color:var(--gold-1);padding:4px 10px;border-radius:12px;font-size:0.8rem">Non-Invasive</span>
+            <span style="background:rgba(212,175,55,0.1);color:var(--gold-1);padding:4px 10px;border-radius:12px;font-size:0.8rem">Fat Reduction</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="tech-card" style="background:var(--card-bg);border-radius:var(--border-radius);padding:0;border:1px solid rgba(212,175,55,0.12);overflow:hidden;transition:var(--transition)">
+        <div style="height:180px;background:linear-gradient(135deg,rgba(212,175,55,0.1),rgba(212,175,55,0.05));display:flex;align-items:center;justify-content:center;position:relative">
+          <i class="fas fa-tint" style="font-size:4rem;color:var(--gold-1);opacity:0.7"></i>
+          <div style="position:absolute;top:15px;right:15px;background:var(--gold-1);color:#0a0a0a;padding:4px 12px;border-radius:20px;font-size:0.75rem;font-weight:700">MEDICAL GRADE</div>
+        </div>
+        <div style="padding:25px">
+          <h3 style="color:var(--gold-1);margin-bottom:12px;font-size:1.3rem">HydraFacial MD®</h3>
+          <p style="color:var(--text-secondary);margin-bottom:15px;line-height:1.6;font-size:0.95rem">Patented Vortex-Fusion technology for cleansing, extraction, and hydration.</p>
+          <div style="display:flex;gap:8px;flex-wrap:wrap">
+            <span style="background:rgba(212,175,55,0.1);color:var(--gold-1);padding:4px 10px;border-radius:12px;font-size:0.8rem">Vortex Fusion</span>
+            <span style="background:rgba(212,175,55,0.1);color:var(--gold-1);padding:4px 10px;border-radius:12px;font-size:0.8rem">Hydration</span>
+            <span style="background:rgba(212,175,55,0.1);color:var(--gold-1);padding:4px 10px;border-radius:12px;font-size:0.8rem">No Downtime</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div style="margin-top:60px;text-align:center;background:var(--card-bg);border-radius:var(--border-radius);padding:40px;border:1px solid rgba(212,175,55,0.15)">
+      <h3 style="color:var(--gold-1);margin-bottom:20px;font-size:1.6rem">Why Our Technology Matters</h3>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:30px;text-align:center">
+        <div>
+          <div style="width:60px;height:60px;background:linear-gradient(135deg,var(--gold-1),var(--gold-2));border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 15px;font-size:1.5rem;color:#0a0a0a">
+            <i class="fas fa-shield-alt"></i>
+          </div>
+          <h4 style="color:var(--gold-1);margin-bottom:8px">FDA Approved</h4>
+          <p style="color:var(--text-secondary);font-size:0.9rem;line-height:1.5">All treatments using clinically proven, FDA-approved devices</p>
+        </div>
+        <div>
+          <div style="width:60px;height:60px;background:linear-gradient(135deg,var(--gold-1),var(--gold-2));border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 15px;font-size:1.5rem;color:#0a0a0a">
+            <i class="fas fa-microscope"></i>
+          </div>
+          <h4 style="color:var(--gold-1);margin-bottom:8px">Clinically Proven</h4>
+          <p style="color:var(--text-secondary);font-size:0.9rem;line-height:1.5">Evidence-based treatments with documented results</p>
+        </div>
+        <div>
+          <div style="width:60px;height:60px;background:linear-gradient(135deg,var(--gold-1),var(--gold-2));border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 15px;font-size:1.5rem;color:#0a0a0a">
+            <i class="fas fa-user-md"></i>
+          </div>
+          <h4 style="color:var(--gold-1);margin-bottom:8px">Expert Operation</h4>
+          <p style="color:var(--text-secondary);font-size:0.9rem;line-height:1.5">Operated by certified medical professionals only</p>
+        </div>
+      </div>
+    </div>
   </section>
 
   <!-- CERTIFICATIONS & CREDENTIALS -->
@@ -1387,23 +2085,227 @@
     </div>
   </section>
 
-  <!-- TESTIMONIALS -->
+  <!-- PATIENT SAFETY & CARE -->
+  <section id="safety" class="reveal">
+    <h2>Your Safety Is Our Priority</h2>
+    <p class="lead">We maintain the highest standards of patient safety and care, following all medical protocols and maintaining a sterile, clinical environment for your protection and comfort.</p>
+    
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:35px;margin-top:50px">
+      <div class="safety-card" style="background:var(--card-bg);border-radius:var(--border-radius);padding:30px;border:1px solid rgba(212,175,55,0.12);text-align:center;transition:var(--transition)">
+        <div style="width:70px;height:70px;background:linear-gradient(135deg,rgba(212,175,55,0.15),rgba(212,175,55,0.08));border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 20px;font-size:1.8rem;color:var(--gold-1)">
+          <i class="fas fa-shield-virus"></i>
+        </div>
+        <h3 style="color:var(--gold-1);margin-bottom:15px;font-size:1.2rem">Sterile Environment</h3>
+        <p style="color:var(--text-secondary);line-height:1.6;font-size:0.95rem">Hospital-grade sterilization protocols, single-use instruments, and rigorous cleaning procedures between all treatments.</p>
+      </div>
+      
+      <div class="safety-card" style="background:var(--card-bg);border-radius:var(--border-radius);padding:30px;border:1px solid rgba(212,175,55,0.12);text-align:center;transition:var(--transition)">
+        <div style="width:70px;height:70px;background:linear-gradient(135deg,rgba(212,175,55,0.15),rgba(212,175,55,0.08));border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 20px;font-size:1.8rem;color:var(--gold-1)">
+          <i class="fas fa-user-nurse"></i>
+        </div>
+        <h3 style="color:var(--gold-1);margin-bottom:15px;font-size:1.2rem">Licensed Professionals</h3>
+        <p style="color:var(--text-secondary);line-height:1.6;font-size:0.95rem">All treatments performed by board-certified physicians and licensed medical aestheticians with continuous education.</p>
+      </div>
+      
+      <div class="safety-card" style="background:var(--card-bg);border-radius:var(--border-radius);padding:30px;border:1px solid rgba(212,175,55,0.12);text-align:center;transition:var(--transition)">
+        <div style="width:70px;height:70px;background:linear-gradient(135deg,rgba(212,175,55,0.15),rgba(212,175,55,0.08));border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 20px;font-size:1.8rem;color:var(--gold-1)">
+          <i class="fas fa-heartbeat"></i>
+        </div>
+        <h3 style="color:var(--gold-1);margin-bottom:15px;font-size:1.2rem">Medical Monitoring</h3>
+        <p style="color:var(--text-secondary);line-height:1.6;font-size:0.95rem">Continuous patient monitoring, emergency protocols, and immediate access to medical support when needed.</p>
+      </div>
+      
+      <div class="safety-card" style="background:var(--card-bg);border-radius:var(--border-radius);padding:30px;border:1px solid rgba(212,175,55,0.12);text-align:center;transition:var(--transition)">
+        <div style="width:70px;height:70px;background:linear-gradient(135deg,rgba(212,175,55,0.15),rgba(212,175,55,0.08));border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 20px;font-size:1.8rem;color:var(--gold-1)">
+          <i class="fas fa-clipboard-check"></i>
+        </div>
+        <h3 style="color:var(--gold-1);margin-bottom:15px;font-size:1.2rem">Pre-Treatment Assessment</h3>
+        <p style="color:var(--text-secondary);line-height:1.6;font-size:0.95rem">Comprehensive consultation, medical history review, and personalized treatment planning for optimal safety.</p>
+      </div>
+    </div>
+    
+    <div style="margin-top:50px;text-align:center;background:linear-gradient(135deg,rgba(212,175,55,0.05),rgba(212,175,55,0.02));border-radius:var(--border-radius);padding:40px;border:1px solid rgba(212,175,55,0.1)">
+      <h3 style="color:var(--gold-1);margin-bottom:20px;font-size:1.6rem">Our Safety Certifications</h3>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:25px;margin-top:25px">
+        <div style="text-align:center">
+          <i class="fas fa-medal" style="font-size:2.5rem;color:var(--gold-1);margin-bottom:10px"></i>
+          <div style="font-weight:600;color:var(--gold-1);margin-bottom:5px">OSHA Compliant</div>
+          <div style="font-size:0.85rem;color:var(--text-secondary)">Safety Standards</div>
+        </div>
+        <div style="text-align:center">
+          <i class="fas fa-certificate" style="font-size:2.5rem;color:var(--gold-1);margin-bottom:10px"></i>
+          <div style="font-weight:600;color:var(--gold-1);margin-bottom:5px">State Licensed</div>
+          <div style="font-size:0.85rem;color:var(--text-secondary)">Medical Facility</div>
+        </div>
+        <div style="text-align:center">
+          <i class="fas fa-shield-alt" style="font-size:2.5rem;color:var(--gold-1);margin-bottom:10px"></i>
+          <div style="font-weight:600;color:var(--gold-1);margin-bottom:5px">Insurance</div>
+          <div style="font-size:0.85rem;color:var(--text-secondary)">$5M Coverage</div>
+        </div>
+        <div style="text-align:center">
+          <i class="fas fa-user-check" style="font-size:2.5rem;color:var(--gold-1);margin-bottom:10px"></i>
+          <div style="font-weight:600;color:var(--gold-1);margin-bottom:5px">HIPAA Compliant</div>
+          <div style="font-size:0.85rem;color:var(--text-secondary)">Privacy Protected</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINANCING OPTIONS -->
+  <section id="financing" class="reveal" style="background:linear-gradient(135deg,rgba(212,175,55,0.03),rgba(212,175,55,0.01))">
+    <h2>Flexible Financing Options</h2>
+    <p class="lead">We believe everyone deserves access to premium aesthetic treatments. Our flexible payment plans and financing options make your transformation journey affordable and accessible.</p>
+    
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:35px;margin-top:50px">
+      <div class="financing-card" style="background:var(--card-bg);border-radius:var(--border-radius);padding:35px;border:1px solid rgba(212,175,55,0.15);transition:var(--transition);position:relative;overflow:hidden">
+        <div style="position:absolute;top:0;right:0;background:var(--gold-1);color:#0a0a0a;padding:8px 16px;border-radius:0 0 0 16px;font-size:0.8rem;font-weight:700">POPULAR</div>
+        <div style="text-align:center;margin-bottom:25px">
+          <i class="fas fa-credit-card" style="font-size:3rem;color:var(--gold-1);margin-bottom:15px"></i>
+          <h3 style="color:var(--gold-1);font-size:1.4rem;margin-bottom:10px">CareCredit®</h3>
+          <p style="color:var(--text-secondary);font-size:0.95rem">Healthcare financing with promotional periods</p>
+        </div>
+        <ul style="list-style:none;padding:0;margin:0 0 25px 0;color:var(--text-secondary)">
+          <li style="display:flex;align-items:center;margin-bottom:10px;font-size:0.9rem"><i class="fas fa-check" style="color:var(--gold-1);margin-right:10px;font-size:0.8rem"></i>0% Interest for 6-24 months*</li>
+          <li style="display:flex;align-items:center;margin-bottom:10px;font-size:0.9rem"><i class="fas fa-check" style="color:var(--gold-1);margin-right:10px;font-size:0.8rem"></i>Quick online application</li>
+          <li style="display:flex;align-items:center;margin-bottom:10px;font-size:0.9rem"><i class="fas fa-check" style="color:var(--gold-1);margin-right:10px;font-size:0.8rem"></i>Instant approval decisions</li>
+          <li style="display:flex;align-items:center;margin-bottom:10px;font-size:0.9rem"><i class="fas fa-check" style="color:var(--gold-1);margin-right:10px;font-size:0.8rem"></i>Use for multiple treatments</li>
+        </ul>
+        <button class="btn" style="width:100%;margin-bottom:10px">Apply Now</button>
+        <p style="font-size:0.75rem;color:var(--muted);text-align:center;line-height:1.4">*Subject to credit approval. Minimum monthly payments required.</p>
+      </div>
+      
+      <div class="financing-card" style="background:var(--card-bg);border-radius:var(--border-radius);padding:35px;border:1px solid rgba(212,175,55,0.15);transition:var(--transition)">
+        <div style="text-align:center;margin-bottom:25px">
+          <i class="fas fa-calendar-alt" style="font-size:3rem;color:var(--gold-1);margin-bottom:15px"></i>
+          <h3 style="color:var(--gold-1);font-size:1.4rem;margin-bottom:10px">Payment Plans</h3>
+          <p style="color:var(--text-secondary);font-size:0.95rem">Customized payment schedules</p>
+        </div>
+        <ul style="list-style:none;padding:0;margin:0 0 25px 0;color:var(--text-secondary)">
+          <li style="display:flex;align-items:center;margin-bottom:10px;font-size:0.9rem"><i class="fas fa-check" style="color:var(--gold-1);margin-right:10px;font-size:0.8rem"></i>Split payments over 2-6 months</li>
+          <li style="display:flex;align-items:center;margin-bottom:10px;font-size:0.9rem"><i class="fas fa-check" style="color:var(--gold-1);margin-right:10px;font-size:0.8rem"></i>No credit check required</li>
+          <li style="display:flex;align-items:center;margin-bottom:10px;font-size:0.9rem"><i class="fas fa-check" style="color:var(--gold-1);margin-right:10px;font-size:0.8rem"></i>Automatic payments available</li>
+          <li style="display:flex;align-items:center;margin-bottom:10px;font-size:0.9rem"><i class="fas fa-check" style="color:var(--gold-1);margin-right:10px;font-size:0.8rem"></i>Flexible scheduling</li>
+        </ul>
+        <button class="btn secondary" style="width:100%">Learn More</button>
+      </div>
+      
+      <div class="financing-card" style="background:var(--card-bg);border-radius:var(--border-radius);padding:35px;border:1px solid rgba(212,175,55,0.15);transition:var(--transition)">
+        <div style="text-align:center;margin-bottom:25px">
+          <i class="fas fa-piggy-bank" style="font-size:3rem;color:var(--gold-1);margin-bottom:15px"></i>
+          <h3 style="color:var(--gold-1);font-size:1.4rem;margin-bottom:10px">Package Savings</h3>
+          <p style="color:var(--text-secondary);font-size:0.95rem">Bundle treatments and save more</p>
+        </div>
+        <ul style="list-style:none;padding:0;margin:0 0 25px 0;color:var(--text-secondary)">
+          <li style="display:flex;align-items:center;margin-bottom:10px;font-size:0.9rem"><i class="fas fa-check" style="color:var(--gold-1);margin-right:10px;font-size:0.8rem"></i>Save up to $600 on packages</li>
+          <li style="display:flex;align-items:center;margin-bottom:10px;font-size:0.9rem"><i class="fas fa-check" style="color:var(--gold-1);margin-right:10px;font-size:0.8rem"></i>Priority booking included</li>
+          <li style="display:flex;align-items:center;margin-bottom:10px;font-size:0.9rem"><i class="fas fa-check" style="color:var(--gold-1);margin-right:10px;font-size:0.8rem"></i>Extended payment terms</li>
+          <li style="display:flex;align-items:center;margin-bottom:10px;font-size:0.9rem"><i class="fas fa-check" style="color:var(--gold-1);margin-right:10px;font-size:0.8rem"></i>Complimentary consultations</li>
+        </ul>
+        <button class="btn secondary" style="width:100%">View Packages</button>
+      </div>
+    </div>
+    
+    <div style="margin-top:50px;text-align:center;background:var(--card-bg);border-radius:var(--border-radius);padding:30px;border:1px solid rgba(212,175,55,0.1)">
+      <h4 style="color:var(--gold-1);margin-bottom:15px;font-size:1.3rem">Questions About Financing?</h4>
+      <p style="color:var(--text-secondary);margin-bottom:20px;font-size:1rem">Our patient care coordinators are here to help you explore all available options.</p>
+      <div style="display:flex;gap:15px;justify-content:center;flex-wrap:wrap">
+        <button class="btn" onclick="openQuickModal()">Schedule Consultation</button>
+        <a href="tel:5551234569" class="btn secondary" style="display:inline-flex;align-items:center;gap:8px"><i class="fas fa-phone"></i>Call (555) 123-GLOW</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ENHANCED TESTIMONIALS SLIDER -->
   <section id="testimonials" class="reveal">
-    <h2>Client Testimonials</h2>
-    <p class="lead">Real feedback — real results.</p>
-    <div class="testimonials">
-      <div class="testimonial">
-        <p>"HydraFacial at Urban Aesthetic was transformative — instant glow and smoother texture. My skin has never looked better!"</p>
-        <strong style="display:block;margin-top:16px;color:var(--gold-1)">— Nadia R.</strong>
+    <h2>What Our Clients Say</h2>
+    <p class="lead">Real transformations, real testimonials from our valued clients who trusted us with their aesthetic journey.</p>
+    
+    <div class="testimonials-slider-container" style="position:relative;max-width:900px;margin:50px auto 0;overflow:hidden;border-radius:var(--border-radius)">
+      <div class="testimonials-slider" style="display:flex;transition:transform 0.5s ease">
+        <div class="testimonial-slide" style="min-width:100%;padding:40px;background:linear-gradient(145deg,var(--card-bg),rgba(255,255,255,0.01));border:1px solid rgba(212,175,55,0.15);text-align:center;position:relative">
+          <div style="font-size:3rem;color:var(--gold-1);opacity:0.3;line-height:1;margin-bottom:20px">“</div>
+          <p style="font-size:1.15rem;line-height:1.7;color:var(--text);margin-bottom:25px;font-style:italic">"The Morpheus8 treatment at Urban Aesthetic completely transformed my skin. After 3 sessions, my fine lines were dramatically reduced and my skin feels firmer than it has in years. Dr. Chen and her team are absolutely phenomenal!"</p>
+          <div style="display:flex;align-items:center;justify-content:center;gap:15px">
+            <div style="width:50px;height:50px;border-radius:50%;background:url('https://images.unsplash.com/photo-1494790108755-2616c34d5ad9?auto=format&fit=crop&w=100&q=90') center/cover"></div>
+            <div style="text-align:left">
+              <strong style="color:var(--gold-1);display:block;font-size:1.1rem">Sarah M.</strong>
+              <div style="color:var(--text-secondary);font-size:0.9rem">Executive, Age 42</div>
+              <div style="color:var(--gold-1);font-size:0.8rem;margin-top:2px">★★★★★</div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="testimonial-slide" style="min-width:100%;padding:40px;background:linear-gradient(145deg,var(--card-bg),rgba(255,255,255,0.01));border:1px solid rgba(212,175,55,0.15);text-align:center;position:relative">
+          <div style="font-size:3rem;color:var(--gold-1);opacity:0.3;line-height:1;margin-bottom:20px">“</div>
+          <p style="font-size:1.15rem;line-height:1.7;color:var(--text);margin-bottom:25px;font-style:italic">"I was hesitant about Botox, but Dr. Rodriguez made me feel completely comfortable. The results are so natural-looking, people keep asking if I've been on vacation! The professionalism here is unmatched."</p>
+          <div style="display:flex;align-items:center;justify-content:center;gap:15px">
+            <div style="width:50px;height:50px;border-radius:50%;background:url('https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=100&q=90') center/cover"></div>
+            <div style="text-align:left">
+              <strong style="color:var(--gold-1);display:block;font-size:1.1rem">Jennifer L.</strong>
+              <div style="color:var(--text-secondary);font-size:0.9rem">Teacher, Age 38</div>
+              <div style="color:var(--gold-1);font-size:0.8rem;margin-top:2px">★★★★★</div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="testimonial-slide" style="min-width:100%;padding:40px;background:linear-gradient(145deg,var(--card-bg),rgba(255,255,255,0.01));border:1px solid rgba(212,175,55,0.15);text-align:center;position:relative">
+          <div style="font-size:3rem;color:var(--gold-1);opacity:0.3;line-height:1;margin-bottom:20px">“</div>
+          <p style="font-size:1.15rem;line-height:1.7;color:var(--text);margin-bottom:25px;font-style:italic">"The HydraFacial MD is incredible! My skin glows for weeks after each treatment. The entire staff treats you like royalty, and the results speak for themselves. I've been a client for 2 years now."</p>
+          <div style="display:flex;align-items:center;justify-content:center;gap:15px">
+            <div style="width:50px;height:50px;border-radius:50%;background:url('https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=100&q=90') center/cover"></div>
+            <div style="text-align:left">
+              <strong style="color:var(--gold-1);display:block;font-size:1.1rem">Maria C.</strong>
+              <div style="color:var(--text-secondary);font-size:0.9rem">Entrepreneur, Age 45</div>
+              <div style="color:var(--gold-1);font-size:0.8rem;margin-top:2px">★★★★★</div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="testimonial-slide" style="min-width:100%;padding:40px;background:linear-gradient(145deg,var(--card-bg),rgba(255,255,255,0.01));border:1px solid rgba(212,175,55,0.15);text-align:center;position:relative">
+          <div style="font-size:3rem;color:var(--gold-1);opacity:0.3;line-height:1;margin-bottom:20px">“</div>
+          <p style="font-size:1.15rem;line-height:1.7;color:var(--text);margin-bottom:25px;font-style:italic">"CoolSculpting Elite was exactly what I needed. No downtime, no pain, and the results after 3 months exceeded my expectations. The technology here is cutting-edge and the staff is incredibly knowledgeable."</p>
+          <div style="display:flex;align-items:center;justify-content:center;gap:15px">
+            <div style="width:50px;height:50px;border-radius:50%;background:url('https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?auto=format&fit=crop&w=100&q=90') center/cover"></div>
+            <div style="text-align:left">
+              <strong style="color:var(--gold-1);display:block;font-size:1.1rem">Rachel K.</strong>
+              <div style="color:var(--text-secondary);font-size:0.9rem">Marketing Director, Age 35</div>
+              <div style="color:var(--gold-1);font-size:0.8rem;margin-top:2px">★★★★★</div>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="testimonial">
-        <p>"The chemical peel treatment cleared my acne scars significantly. The team is highly professional and the clinic feels luxurious."</p>
-        <strong style="display:block;margin-top:16px;color:var(--gold-1)">— Omar S.</strong>
+      
+      <!-- Slider Navigation -->
+      <div class="slider-nav" style="display:flex;justify-content:center;gap:10px;margin-top:30px">
+        <button class="nav-dot active" data-slide="0" style="width:12px;height:12px;border-radius:50%;background:var(--gold-1);border:none;cursor:pointer;transition:var(--transition)"></button>
+        <button class="nav-dot" data-slide="1" style="width:12px;height:12px;border-radius:50%;background:rgba(212,175,55,0.3);border:none;cursor:pointer;transition:var(--transition)"></button>
+        <button class="nav-dot" data-slide="2" style="width:12px;height:12px;border-radius:50%;background:rgba(212,175,55,0.3);border:none;cursor:pointer;transition:var(--transition)"></button>
+        <button class="nav-dot" data-slide="3" style="width:12px;height:12px;border-radius:50%;background:rgba(212,175,55,0.3);border:none;cursor:pointer;transition:var(--transition)"></button>
       </div>
-      <div class="testimonial">
-        <p>"Clinic felt like a boutique spa with medical-grade care. Results were visible after just 2 sessions. Absolutely worth it!"</p>
-        <strong style="display:block;margin-top:16px;color:var(--gold-1)">— Hannah T.</strong>
+      
+      <!-- Previous/Next Buttons -->
+      <button class="slider-prev" style="position:absolute;left:15px;top:50%;transform:translateY(-50%);background:rgba(212,175,55,0.9);border:none;color:#0a0a0a;width:40px;height:40px;border-radius:50%;cursor:pointer;font-size:1.2rem;transition:var(--transition);z-index:10">‹</button>
+      <button class="slider-next" style="position:absolute;right:15px;top:50%;transform:translateY(-50%);background:rgba(212,175,55,0.9);border:none;color:#0a0a0a;width:40px;height:40px;border-radius:50%;cursor:pointer;font-size:1.2rem;transition:var(--transition);z-index:10">›</button>
+    </div>
+    
+    <!-- Review Summary -->
+    <div style="margin-top:50px;text-align:center;background:var(--card-bg);border-radius:var(--border-radius);padding:35px;border:1px solid rgba(212,175,55,0.1)">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:25px;margin-bottom:25px">
+        <div>
+          <div style="font-size:2.5rem;font-weight:800;color:var(--gold-1);margin-bottom:5px">4.9</div>
+          <div style="color:var(--gold-1);margin-bottom:5px">★★★★★</div>
+          <div style="color:var(--text-secondary);font-size:0.9rem">Average Rating</div>
+        </div>
+        <div>
+          <div style="font-size:2.5rem;font-weight:800;color:var(--gold-1);margin-bottom:5px">1,200+</div>
+          <div style="color:var(--text-secondary);font-size:0.9rem;margin-top:20px">Happy Clients</div>
+        </div>
+        <div>
+          <div style="font-size:2.5rem;font-weight:800;color:var(--gold-1);margin-bottom:5px">98%</div>
+          <div style="color:var(--text-secondary);font-size:0.9rem;margin-top:20px">Would Recommend</div>
+        </div>
       </div>
+      <p style="color:var(--text-secondary);font-size:0.9rem;margin-top:20px">Based on verified reviews from Google, Yelp, and internal patient surveys</p>
     </div>
   </section>
 
@@ -1505,8 +2407,10 @@
 
 <!-- STICKY BOOK -->
 <div class="book-sticky">
-  <button class="book-btn" onclick="openQuickModal()">
-    <span class="book-pulse" aria-hidden="true"></span>BOOK NOW
+  <button class="book-btn" onclick="openQuickModal()" aria-label="Book appointment now">
+    <span class="book-pulse" aria-hidden="true"></span>
+    <i class="fas fa-calendar-plus" style="font-size:0.8rem;"></i>
+    <span>BOOK</span>
   </button>
 </div>
 
@@ -1617,13 +2521,167 @@
     draw();
   })();
 
-  /* ---------- SCROLL REVEAL ---------- */
-  const observer = new IntersectionObserver((entries)=>{
-    entries.forEach(entry=>{
-      if(entry.isIntersecting) entry.target.classList.add('visible');
-    });
-  }, {threshold: 0.18});
-  document.querySelectorAll('section').forEach(s => observer.observe(s));
+  /* ---------- ENHANCED SCROLL REVEAL WITH MOBILE DETECTION ---------- */
+  
+  // Mobile detection function
+  function isMobileDevice() {
+    return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || 
+           window.innerWidth <= 768 || 
+           ('ontouchstart' in window) || 
+           (navigator.maxTouchPoints > 0);
+  }
+  
+  // Create mobile loading indicator
+  function createMobileLoadingIndicator() {
+    if (!isMobileDevice()) return null;
+    
+    const indicator = document.createElement('div');
+    indicator.className = 'mobile-loading-indicator';
+    indicator.id = 'mobileLoader';
+    indicator.innerHTML = `
+      <div class="mobile-loading-spinner"></div>
+      <div style="color:var(--gold-1);font-weight:600;font-size:0.95rem">Loading Clinic Content...</div>
+      <div style="color:var(--text-secondary);font-size:0.85rem;margin-top:5px">Please wait</div>
+    `;
+    document.body.appendChild(indicator);
+    return indicator;
+  }
+  
+  // Enhanced mobile-friendly reveal system
+  function initializeRevealSystem() {
+    const sections = document.querySelectorAll('section');
+    
+    if (isMobileDevice()) {
+      // Show mobile loading indicator
+      const loadingIndicator = createMobileLoadingIndicator();
+      
+      // Mobile: Show all sections immediately with staggered animation
+      sections.forEach((section, index) => {
+        section.style.opacity = '1';
+        section.style.transform = 'translateY(0)';
+        section.classList.add('visible');
+        
+        // Add subtle staggered animation for mobile
+        setTimeout(() => {
+          section.classList.add('mobile-animate');
+        }, index * 80);
+      });
+      
+      // Hide loading indicator after content is loaded
+      setTimeout(() => {
+        if (loadingIndicator) {
+          loadingIndicator.style.opacity = '0';
+          setTimeout(() => {
+            if (loadingIndicator.parentNode) {
+              loadingIndicator.parentNode.removeChild(loadingIndicator);
+            }
+          }, 300);
+        }
+      }, 2000);
+      
+      console.log('Mobile device detected - sections loaded immediately');
+    } else {
+      // Desktop: Use Intersection Observer
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+          }
+        });
+      }, { 
+        threshold: 0.15,
+        rootMargin: '50px 0px -50px 0px'
+      });
+      
+      sections.forEach(section => {
+        observer.observe(section);
+      });
+      
+      console.log('Desktop device - using Intersection Observer');
+    }
+  }
+  
+  // Initialize on DOM load
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initializeRevealSystem);
+  } else {
+    initializeRevealSystem();
+  }
+  
+  // Backup safety system - ensure all sections are visible after 3 seconds
+  setTimeout(() => {
+    const hiddenSections = document.querySelectorAll('section:not(.visible)');
+    if (hiddenSections.length > 0) {
+      console.log('Backup loading system activated - showing', hiddenSections.length, 'hidden sections');
+      hiddenSections.forEach((section, index) => {
+        setTimeout(() => {
+          section.style.opacity = '1';
+          section.style.transform = 'translateY(0)';
+          section.classList.add('visible');
+          section.classList.add('mobile-animate');
+        }, index * 50);
+      });
+    }
+  }, 3000);
+  
+  // Additional backup for Android devices
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      const allSections = document.querySelectorAll('section');
+      allSections.forEach(section => {
+        if (getComputedStyle(section).opacity === '0') {
+          section.style.opacity = '1';
+          section.style.transform = 'translateY(0)';
+          section.classList.add('visible');
+          console.log('Android backup loaded section:', section.id || 'unnamed section');
+        }
+      });
+    }, 1000);
+  });
+  
+  // Handle viewport changes and orientation on mobile
+  function handleMobileViewportChanges() {
+    if (isMobileDevice()) {
+      // Ensure sections remain visible after orientation change
+      const sections = document.querySelectorAll('section');
+      sections.forEach(section => {
+        section.style.opacity = '1';
+        section.style.transform = 'translateY(0)';
+        section.classList.add('visible');
+      });
+      
+      // Force repaint to fix Android rendering issues
+      document.body.style.display = 'none';
+      document.body.offsetHeight; // Trigger reflow
+      document.body.style.display = '';
+    }
+  }
+  
+  // Listen for orientation changes and resize events on mobile
+  window.addEventListener('orientationchange', () => {
+    setTimeout(handleMobileViewportChanges, 500);
+  });
+  
+  window.addEventListener('resize', () => {
+    if (isMobileDevice()) {
+      setTimeout(handleMobileViewportChanges, 300);
+    }
+  });
+  
+  // Force visibility check every 5 seconds on mobile (for problematic Android browsers)
+  if (isMobileDevice()) {
+    setInterval(() => {
+      const hiddenSections = document.querySelectorAll('section:not(.visible)');
+      if (hiddenSections.length > 0) {
+        console.log('Periodic check: forcing', hiddenSections.length, 'sections to be visible');
+        hiddenSections.forEach(section => {
+          section.style.opacity = '1';
+          section.style.transform = 'translateY(0)';
+          section.classList.add('visible');
+        });
+      }
+    }, 5000);
+  }
 
   /* ---------- HEADER SCROLL ---------- */
   window.addEventListener('scroll', ()=> {
@@ -1684,6 +2742,161 @@
     e.target.reset();
   });
 
+  /* ---------- MOBILE SIDEBAR FUNCTIONALITY ---------- */
+  const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+  const mobileSidebar = document.getElementById('mobileSidebar');
+  const sidebarOverlay = document.getElementById('sidebarOverlay');
+  const sidebarClose = document.getElementById('sidebarClose');
+  
+  function openSidebar() {
+    mobileSidebar.classList.add('open');
+    sidebarOverlay.classList.add('show');
+    document.body.style.overflow = 'hidden';
+    
+    // Hide the Book Now button when sidebar is open
+    const bookButton = document.querySelector('.book-sticky');
+    if (bookButton) {
+      bookButton.classList.add('hidden');
+    }
+    
+    // Animate sidebar links
+    const sidebarLinks = document.querySelectorAll('.sidebar-link');
+    sidebarLinks.forEach((link, index) => {
+      link.style.opacity = '0';
+      link.style.transform = 'translateX(20px)';
+      setTimeout(() => {
+        link.style.transition = 'all 0.3s ease';
+        link.style.opacity = '1';
+        link.style.transform = 'translateX(0)';
+      }, 100 + (index * 30)); // Faster animation
+    });
+  }
+  
+  function closeSidebar() {
+    mobileSidebar.classList.remove('open');
+    sidebarOverlay.classList.remove('show');
+    document.body.style.overflow = '';
+    
+    // Show the Book Now button when sidebar is closed
+    const bookButton = document.querySelector('.book-sticky');
+    if (bookButton) {
+      setTimeout(() => {
+        bookButton.classList.remove('hidden');
+      }, 300); // Small delay to avoid overlap
+    }
+  }
+  
+  mobileMenuBtn.addEventListener('click', openSidebar);
+  sidebarClose.addEventListener('click', closeSidebar);
+  sidebarOverlay.addEventListener('click', closeSidebar);
+  
+  // Handle sidebar link clicks
+  document.querySelectorAll('.sidebar-link').forEach(link => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      const target = document.querySelector(link.getAttribute('href'));
+      if (target) {
+        closeSidebar();
+        setTimeout(() => {
+          const headerHeight = 75;
+          const targetPosition = target.offsetTop - headerHeight;
+          window.scrollTo({
+            top: targetPosition,
+            behavior: 'smooth'
+          });
+        }, 300);
+      }
+      
+      // Update active state
+      document.querySelectorAll('.sidebar-link').forEach(l => l.classList.remove('active'));
+      link.classList.add('active');
+    });
+  });
+  
+  // Close sidebar on escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && mobileSidebar.classList.contains('open')) {
+      closeSidebar();
+    }
+  });
+  
+  // Add swipe-to-close functionality for mobile sidebar
+  let startX = 0;
+  let startY = 0;
+  
+  if (mobileSidebar) {
+    mobileSidebar.addEventListener('touchstart', (e) => {
+      startX = e.touches[0].clientX;
+      startY = e.touches[0].clientY;
+    });
+    
+    mobileSidebar.addEventListener('touchmove', (e) => {
+      if (!startX || !startY) return;
+      
+      const currentX = e.touches[0].clientX;
+      const currentY = e.touches[0].clientY;
+      
+      const diffX = currentX - startX;
+      const diffY = currentY - startY;
+      
+      // Swipe right to close (horizontal swipe > 50px and more horizontal than vertical)
+      if (diffX > 50 && Math.abs(diffX) > Math.abs(diffY)) {
+        closeSidebar();
+        startX = 0;
+        startY = 0;
+      }
+    });
+    
+    mobileSidebar.addEventListener('touchend', () => {
+      startX = 0;
+      startY = 0;
+    });
+  }
+  
+  /* ---------- ANIMATED COUNTERS ---------- */
+  function animateCounter(element, target, duration = 2000) {
+    let start = 0;
+    const increment = target / (duration / 16);
+    const timer = setInterval(() => {
+      start += increment;
+      if (start >= target) {
+        element.textContent = target.toLocaleString();
+        clearInterval(timer);
+      } else {
+        element.textContent = Math.floor(start).toLocaleString();
+      }
+    }, 16);
+  }
+  
+  // Add stats counter section after technology section
+  const technologySection = document.getElementById('technology');
+  if (technologySection) {
+    const statsHTML = `
+      <div style="margin-top:60px;background:linear-gradient(135deg,rgba(212,175,55,0.08),rgba(212,175,55,0.02));border-radius:var(--border-radius);padding:50px 30px;border:1px solid rgba(212,175,55,0.15)">
+        <h3 style="text-align:center;color:var(--gold-1);margin-bottom:40px;font-size:1.8rem">Our Track Record</h3>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:30px;text-align:center">
+          <div class="stat-item">
+            <div class="counter" data-target="15000" style="font-size:3rem;font-weight:800;color:var(--gold-1);margin-bottom:10px">0</div>
+            <div style="color:var(--text-secondary);font-size:0.95rem;font-weight:500">Treatments Delivered</div>
+          </div>
+          <div class="stat-item">
+            <div class="counter" data-target="98" style="font-size:3rem;font-weight:800;color:var(--gold-1);margin-bottom:10px">0</div>
+            <div style="color:var(--text-secondary);font-size:0.95rem;font-weight:500">% Client Satisfaction</div>
+          </div>
+          <div class="stat-item">
+            <div class="counter" data-target="6" style="font-size:3rem;font-weight:800;color:var(--gold-1);margin-bottom:10px">0</div>
+            <div style="color:var(--text-secondary);font-size:0.95rem;font-weight:500">Years of Excellence</div>
+          </div>
+          <div class="stat-item">
+            <div class="counter" data-target="50" style="font-size:3rem;font-weight:800;color:var(--gold-1);margin-bottom:10px">0</div>
+            <div style="color:var(--text-secondary);font-size:0.95rem;font-weight:500">Years Combined Experience</div>
+          </div>
+        </div>
+      </div>
+    `;
+    technologySection.insertAdjacentHTML('beforeend', statsHTML);
+  }
+  
   /* ---------- ENHANCED INTERACTIONS ---------- */
   // Certification cards hover effect
   document.querySelectorAll('.cert-card').forEach(card => {
@@ -1712,6 +2925,146 @@
       card.style.borderColor = 'rgba(212,175,55,0.1)';
     });
   });
+  
+  // Technology cards hover effect
+  document.querySelectorAll('.tech-card').forEach(card => {
+    card.addEventListener('mouseenter', () => {
+      card.style.transform = 'translateY(-8px) scale(1.02)';
+      card.style.boxShadow = 'var(--shadow-heavy)';
+      card.style.borderColor = 'rgba(212,175,55,0.3)';
+    });
+    card.addEventListener('mouseleave', () => {
+      card.style.transform = 'translateY(0) scale(1)';
+      card.style.boxShadow = 'none';
+      card.style.borderColor = 'rgba(212,175,55,0.12)';
+    });
+  });
+  
+  // Safety cards hover effect
+  document.querySelectorAll('.safety-card').forEach(card => {
+    card.addEventListener('mouseenter', () => {
+      card.style.transform = 'translateY(-5px)';
+      card.style.boxShadow = 'var(--shadow-medium)';
+      card.style.borderColor = 'rgba(212,175,55,0.2)';
+    });
+    card.addEventListener('mouseleave', () => {
+      card.style.transform = 'translateY(0)';
+      card.style.boxShadow = 'none';
+      card.style.borderColor = 'rgba(212,175,55,0.12)';
+    });
+  });
+  
+  // Financing cards hover effect
+  document.querySelectorAll('.financing-card').forEach(card => {
+    card.addEventListener('mouseenter', () => {
+      card.style.transform = 'translateY(-6px)';
+      card.style.boxShadow = 'var(--shadow-medium)';
+      card.style.borderColor = 'rgba(212,175,55,0.25)';
+    });
+    card.addEventListener('mouseleave', () => {
+      card.style.transform = 'translateY(0)';
+      card.style.boxShadow = 'none';
+      card.style.borderColor = 'rgba(212,175,55,0.15)';
+    });
+  });
+  
+  // Animate counters when they come into view
+  const counterObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const counter = entry.target;
+        const target = parseInt(counter.getAttribute('data-target'));
+        animateCounter(counter, target);
+        counterObserver.unobserve(counter);
+      }
+    });
+  }, { threshold: 0.5 });
+  
+  // Observe counters after they're added
+  setTimeout(() => {
+    document.querySelectorAll('.counter').forEach(counter => {
+      counterObserver.observe(counter);
+    });
+  }, 1000);
+  
+  /* ---------- TESTIMONIALS SLIDER ---------- */
+  let currentSlide = 0;
+  const totalSlides = 4;
+  const slider = document.querySelector('.testimonials-slider');
+  const navDots = document.querySelectorAll('.nav-dot');
+  const prevBtn = document.querySelector('.slider-prev');
+  const nextBtn = document.querySelector('.slider-next');
+  
+  function updateSlider() {
+    if (slider) {
+      slider.style.transform = `translateX(-${currentSlide * 100}%)`;
+      
+      // Update navigation dots
+      navDots.forEach((dot, index) => {
+        if (index === currentSlide) {
+          dot.classList.add('active');
+          dot.style.background = 'var(--gold-1)';
+        } else {
+          dot.classList.remove('active');
+          dot.style.background = 'rgba(212,175,55,0.3)';
+        }
+      });
+    }
+  }
+  
+  function nextSlide() {
+    currentSlide = (currentSlide + 1) % totalSlides;
+    updateSlider();
+  }
+  
+  function prevSlide() {
+    currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+    updateSlider();
+  }
+  
+  function goToSlide(slideIndex) {
+    currentSlide = slideIndex;
+    updateSlider();
+  }
+  
+  // Event listeners
+  if (nextBtn && prevBtn) {
+    nextBtn.addEventListener('click', nextSlide);
+    prevBtn.addEventListener('click', prevSlide);
+  }
+  
+  navDots.forEach((dot, index) => {
+    dot.addEventListener('click', () => goToSlide(index));
+  });
+  
+  // Auto-advance slider every 6 seconds
+  let sliderInterval = setInterval(nextSlide, 6000);
+  
+  // Pause auto-advance on hover
+  const sliderContainer = document.querySelector('.testimonials-slider-container');
+  if (sliderContainer) {
+    sliderContainer.addEventListener('mouseenter', () => {
+      clearInterval(sliderInterval);
+    });
+    
+    sliderContainer.addEventListener('mouseleave', () => {
+      sliderInterval = setInterval(nextSlide, 6000);
+    });
+  }
+  
+  // Slider navigation button hover effects
+  if (prevBtn && nextBtn) {
+    [prevBtn, nextBtn].forEach(btn => {
+      btn.addEventListener('mouseenter', () => {
+        btn.style.background = 'var(--gold-1)';
+        btn.style.transform = btn === prevBtn ? 'translateY(-50%) scale(1.1)' : 'translateY(-50%) scale(1.1)';
+      });
+      btn.addEventListener('mouseleave', () => {
+        btn.style.background = 'rgba(212,175,55,0.9)';
+        btn.style.transform = 'translateY(-50%) scale(1)';
+      });
+    });
+  }
   
   /* ---------- SMOOTH NAV LINKS WITH OFFSET ---------- */
   document.querySelectorAll('a[href^="#"]').forEach(a=>{
